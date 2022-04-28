@@ -1,5 +1,7 @@
 
 package registrodetarjetas;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Disenio extends javax.swing.JFrame {
@@ -84,29 +86,28 @@ public class Disenio extends javax.swing.JFrame {
 
     private void BotonIngresarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarArchivoActionPerformed
         String direccion=JOptionPane.showInputDialog("Ingrse la direccion de su archivo: ");
-        ArchivoDeEntrada archivoEntrada= new ArchivoDeEntrada();
-        archivoEntrada.asignarArchivo(direccion);
+        if(direccion != null) {
+            try {
+                ArchivoDeEntrada archivoEntrada= new ArchivoDeEntrada();
+                setAreaInstrucciones(archivoEntrada.leerArchivo(direccion));
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Archivo no encontrado");
+            }
+        }
     }//GEN-LAST:event_BotonIngresarArchivoActionPerformed
     
     public void getAreaInstrucciones(){
         
     }
     
-    public void setAreaInstrucciones(String texto){
-        textArea1.append(texto+"\n");
+    public void setAreaInstrucciones(ArrayList<String> instrucciones){
+        for (String instruccion : instrucciones) {
+            textArea1.append(instruccion+"\n");
+        }
     }
     
     public void setAreaResultados(String texto){
         textArea2.append(texto+"\n");
-    }
-    
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Disenio().setVisible(true);
-            }
-        });
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

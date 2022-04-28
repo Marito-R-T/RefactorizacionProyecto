@@ -1,6 +1,6 @@
 package Instrucciones;
 
-import registrodetarjetas.TarjetaDeCredito;
+import NumerosDeTarjeta.TarjetaDeCredito;
 
 public class CreadorTarjeta {
     

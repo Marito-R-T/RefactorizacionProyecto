@@ -1,66 +1,55 @@
 package Instrucciones;
 
+import Files.ManejadorArchivosTarjetas;
+import Files.ManejadorHTML;
+import Instrucciones.html.RowHTML;
 import registrodetarjetas.ControladorDeArchivos;
-import registrodetarjetas.TarjetaDeCredito;
+import NumerosDeTarjeta.TarjetaDeCredito;
 
-public class Consultar_Tarjeta extends AccionTarjeta {
-    
-    public void evaluarLinea(String line){
+public class Consultar_Tarjeta extends Instruccion implements RowHTML<TarjetaDeCredito> {
+
+    @Override
+    public void evaluarLinea(String line) {
         String reporteHTML;
         String numeroDeTarjeta;
-        int tipoDeTarjeta;
-        String tipo = null;
-        int limite = 0;
-        String nombre;
-        String direccion;
-        boolean estado;
-        String variableEstado;
-        
-        
-        ControladorDeArchivos controlador = new ControladorDeArchivos();
-        TarjetaDeCredito tarjeta = new TarjetaDeCredito();
-        numeroDeTarjeta=line
-                .replaceAll("CONSULTAR_TARJETA","")
-                .replace("(","")
-                .replace(")","");
-        
-        tarjeta=controlador.leerTarjetaDeCredito("Tarjeta"+numeroDeTarjeta+".tacre");
-        
-        tipoDeTarjeta=tarjeta.getTipo();
-        if(tipoDeTarjeta==1){tipo="Nacional";limite=2000;}
-        if(tipoDeTarjeta==2){tipo="Regional";limite=5000;}
-        if(tipoDeTarjeta==3){tipo="Internacional";limite=12000;}
-        
-        nombre=tarjeta.getnombreDelCliente();
-        direccion=tarjeta.getDireccionDelCliente();
-        estado=tarjeta.getEstaActiva();
-        if(estado){
-            variableEstado="Activa";
-        }else{
-            variableEstado="No Activa";
+        numeroDeTarjeta = line
+                .replaceAll("CONSULTAR_TARJETA", "")
+                .replace("(", "")
+                .replace(")", "");
+        try {
+            ManejadorArchivosTarjetas mat = new ManejadorArchivosTarjetas();
+            TarjetaDeCredito tarjeta = mat.leerTarjetaDeCredito("Tarjeta" + numeroDeTarjeta + ".tacre");
+
+            reporteHTML = this.generarHTMLRow(tarjeta);
+
+            ManejadorHTML mhtml = new ManejadorHTML();
+            mhtml.edicionDeReporteHTML(reporteHTML);
+        } catch (AssertionError err) {
+            System.out.println(err.getMessage());
         }
-        
-        reporteHTML="<h3>Consulta de Tarjeta: " +numeroDeTarjeta +"</h3>" +
-            "	<table style=\"border-collapse: collapse;\">\n" +
-            "	  <tr>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">NUMERO DE TARJETA</th>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">TIPO DE TARJETA</th>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">LIMITE</th>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">NOMBRE</th>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">DIRECCION</th>\n" +
-            "	    <th style=\"border: 1px solid #000000;\">ESTADO TARJETA</th>\n" +
-            "	  </tr>\n" +
-            "	  <tr>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+numeroDeTarjeta+"</td>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+tipo+"</td>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+limite+".00"+"</td>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+nombre+"</td>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+direccion+"</td>\n" +
-            "	    <td style=\"border: 1px solid #000000;\">"+variableEstado+"</td>\n" +
-            "	  </tr>\n" +
-            "	</table>";
-        
-        controlador.edicionDeReporteHTML(reporteHTML);
     }
-    
+
+    @Override
+    public String generarHTMLRow(TarjetaDeCredito tarjeta) {
+        return "<h3>Consulta de Tarjeta: " + tarjeta.getNumeroDeTarjeta() + "</h3>"
+                + "	<table style=\"border-collapse: collapse;\">\n"
+                + "	  <tr>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">NUMERO DE TARJETA</th>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">TIPO DE TARJETA</th>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">LIMITE</th>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">NOMBRE</th>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">DIRECCION</th>\n"
+                + "	    <th style=\"border: 1px solid #000000;\">ESTADO TARJETA</th>\n"
+                + "	  </tr>\n"
+                + "	  <tr>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNumeroDeTarjeta() + "</td>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getClass().getName() + "</td>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.obtenerMinimo() + ".00" + "</td>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNombreDelCliente() + "</td>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getDireccionDelCliente() + "</td>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + (tarjeta.isEstaActiva() ? "ACTIVA" : "NO ACTIVA") + "</td>\n"
+                + "	  </tr>\n"
+                + "	</table>";
+    }
+
 }
