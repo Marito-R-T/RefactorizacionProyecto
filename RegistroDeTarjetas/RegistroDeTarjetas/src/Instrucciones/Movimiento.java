@@ -1,11 +1,10 @@
 package Instrucciones;
 
-import Files.ManejadorArchivosInstrucciones;
-import Files.ManejadorArchivosTarjetas;
+import Files.ControladorArchivosInstruccion;
+import Files.ControladorArchivosTarjeta;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.StringTokenizer;
-import NumerosDeTarjeta.TarjetaDeCredito;
 
 public class Movimiento extends Instruccion implements Serializable {
 
@@ -28,6 +27,7 @@ public class Movimiento extends Instruccion implements Serializable {
     public Movimiento() {
     }
 
+    @Override
     public void evaluarLinea(String line) {
 
         StringTokenizer token = new StringTokenizer(line, ","); //se define un nuevo objeto StringTokenizer con la cadena line y el delmitador ","
@@ -39,21 +39,13 @@ public class Movimiento extends Instruccion implements Serializable {
         descripcion = (token.nextToken().replace("\"", ""));
         establecimiento = (token.nextToken().replace("\"", ""));
         monto = Double.parseDouble(token.nextToken().replaceAll("\"", "").replace(")", ""));
-        try {
-            ManejadorArchivosTarjetas mat = new ManejadorArchivosTarjetas();
-            TarjetaDeCredito tarjeta = mat.leerTarjetaDeCredito("Tarjeta" + numeroDeTarjeta + ".tacre");
+        //Escribir nuevo valor de Tarjetas
+        ControladorArchivosTarjeta mat = new ControladorArchivosTarjeta();
+        mat.agregarMonto("Tarjeta" + numeroDeTarjeta + ".tacre", monto);    //Actualizacion del objeto en el archivo
 
-            tarjeta.setCredito(tarjeta.getCredito() + monto);
-
-            mat.escribirEnArchivoTarjeta("Tarjeta" + numeroDeTarjeta + ".tacre", tarjeta);     //Actualizacion del objeto en el archivo
-
-            Movimiento movimiento = new Movimiento(numeroDeTarjeta, fecha, tipoDeMovimiento, descripcion, establecimiento, monto);
-            Calendar tiempo = Calendar.getInstance();
-            String nombreDelNuevoMovimiento = "Movimiento" + String.valueOf(tiempo.getTimeInMillis()) + ".mvito";
-            ManejadorArchivosInstrucciones mai = new ManejadorArchivosInstrucciones();
-            mai.escribirEnArchivoInstruccion(nombreDelNuevoMovimiento, movimiento);
-        } catch (AssertionError err) {
-            System.out.println(err.getMessage());
-        }
+        //Escribir Este movimiento
+        Calendar tiempo = Calendar.getInstance();
+        ControladorArchivosInstruccion controlador = new ControladorArchivosInstruccion();
+        controlador.escribirEnArchivo("Movimiento" + String.valueOf(tiempo.getTimeInMillis()) + ".mvito", this);
     }
 }

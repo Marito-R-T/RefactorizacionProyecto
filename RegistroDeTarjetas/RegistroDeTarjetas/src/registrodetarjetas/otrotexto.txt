@@ -1,5 +1,0 @@
-PEPSI John London 214222
-COLA Sarah France 478800
-
-/home/kevin/NetBeansProjects/RegistroDeTarjetas/src/registrodetarjetas/ArchivoDeEntrada.txt
-

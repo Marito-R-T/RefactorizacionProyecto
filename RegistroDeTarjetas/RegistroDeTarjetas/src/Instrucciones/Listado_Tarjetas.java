@@ -1,31 +1,20 @@
 package Instrucciones;
 
-import Files.ManejadorArchivosTarjetas;
+import Files.ControladorArchivosTarjeta;
 import Files.ManejadorHTML;
-import Instrucciones.html.FotterHTML;
-import Instrucciones.html.HeaderHTML;
-import Instrucciones.html.RowHTML;
+import Instrucciones.html.ToHTML;
 import java.io.File;
 import NumerosDeTarjeta.TarjetaDeCredito;
 
-public class Listado_Tarjetas extends Instruccion implements FotterHTML, HeaderHTML, RowHTML<TarjetaDeCredito>  {
-
-    String reporteHTML;
+public class Listado_Tarjetas extends Instruccion implements ToHTML<TarjetaDeCredito> {
 
     @Override
     public void evaluarLinea(String line) {
-        File carpeta = new File(new File(".").getAbsolutePath());
-        File[] files = carpeta.listFiles((dir1, name)
-                -> name.endsWith(".tacre"));
-        reporteHTML = this.generarHTMLHeader();
-        ManejadorArchivosTarjetas mat = new ManejadorArchivosTarjetas();
-        for (File i : files) {
-            try {
-                TarjetaDeCredito tarjeta = mat.leerTarjetaDeCredito(i.getName());
-                reporteHTML = generarHTMLRow(tarjeta);
-            } catch (AssertionError err) {
-                System.out.println(err.getMessage());
-            }
+        ControladorArchivosTarjeta controladorTarjeta = new ControladorArchivosTarjeta();
+        String reporteHTML = this.generarHTMLHeader();
+        for (File i : controladorTarjeta.getFiles()) {
+            TarjetaDeCredito tarjeta = controladorTarjeta.leerArchivo(i.getName());
+            reporteHTML = generarHTMLRow(tarjeta);
         }
         ManejadorHTML mhtml = new ManejadorHTML();
         reporteHTML += this.generarHTMLFooter();
@@ -55,13 +44,13 @@ public class Listado_Tarjetas extends Instruccion implements FotterHTML, HeaderH
     @Override
     public String generarHTMLRow(TarjetaDeCredito tarjeta) {
         return "         <tr>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNumeroDeTarjeta() + "</th>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getClass().getName() + "</th>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.obtenerMinimo() + "</th>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNombreDelCliente() + "</th>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getDireccionDelCliente() + "</th>\n"
-                        + "           <td style=\"border: 1px solid #000000;\">" + "" + "</th>\n"
-                        + "	    <td style=\"border: 1px solid #000000;\">" + (tarjeta.isEstaActiva() ? "ACTIVA" : "CANCELADA") + "</th>\n"
-                        + "	  </tr>";
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNumeroDeTarjeta() + "</th>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getClass().getName() + "</th>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.obtenerMinimo() + "</th>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getNombreDelCliente() + "</th>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + tarjeta.getDireccionDelCliente() + "</th>\n"
+                + "           <td style=\"border: 1px solid #000000;\">" + "" + "</th>\n"
+                + "	    <td style=\"border: 1px solid #000000;\">" + (tarjeta.isEstaActiva() ? "ACTIVA" : "CANCELADA") + "</th>\n"
+                + "	  </tr>";
     }
 }

@@ -1,25 +1,19 @@
 package Instrucciones;
 
-import Files.ManejadorArchivosInstrucciones;
+import Files.ControladorArchivosInstruccion;
 import Files.ManejadorHTML;
-import Instrucciones.html.FotterHTML;
-import Instrucciones.html.HeaderHTML;
-import Instrucciones.html.RowHTML;
-import NumerosDeTarjeta.ManagerSolicitud;
+import Instrucciones.html.ToHTML;
+import NumerosDeTarjeta.management.ManagerSolicitud;
 import java.io.File;
 
-public class Listado_Solicitudes extends Instruccion implements FotterHTML, HeaderHTML, RowHTML<Solicitud> {
+public class Listado_Solicitudes extends Instruccion implements ToHTML<Solicitud> {
 
-    String reporteHTML;
-
+    @Override
     public void evaluarLinea(String line) {
-        Solicitud solicitud = new Solicitud();
-        File carpeta = new File(new File(".").getAbsolutePath());
-        File[] files = carpeta.listFiles((dir1, name) -> name.endsWith(".sol"));
-        reporteHTML = this.generarHTMLHeader();
-        ManejadorArchivosInstrucciones mai = new ManejadorArchivosInstrucciones();
-        for (File i : files) {
-            solicitud = mai.leerSolicitud(i.getName());
+        ControladorArchivosInstruccion controlador = new ControladorArchivosInstruccion();
+        String reporteHTML = this.generarHTMLHeader();
+        for (File i : controlador.getFiles()) {
+            Solicitud solicitud = (Solicitud) controlador.leerArchivo(i.getName());
             reporteHTML += generarHTMLRow(solicitud);
         }
         ManejadorHTML mhtml = new ManejadorHTML();

@@ -1,5 +1,6 @@
 
 package registrodetarjetas;
+import Files.ArchivoDeEntrada;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -92,6 +93,8 @@ public class Disenio extends javax.swing.JFrame {
                 setAreaInstrucciones(archivoEntrada.leerArchivo(direccion));
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "Archivo no encontrado");
+            } catch (AssertionError err) {
+                JOptionPane.showMessageDialog(this, err.getMessage());
             }
         }
     }//GEN-LAST:event_BotonIngresarArchivoActionPerformed

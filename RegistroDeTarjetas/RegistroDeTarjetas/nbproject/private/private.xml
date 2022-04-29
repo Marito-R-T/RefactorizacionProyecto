@@ -2,6 +2,23 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Files/ControladorArchivosTarjeta.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Files/ArchivoDeEntrada.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Files/ControladorDeArchivos.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Listado_Tarjetas.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Movimiento.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Listado_Solicitudes.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Solicitud.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Autorizacion_Tarjeta.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/main/RegistroDeTarjetas.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Cancelacion_Tarjeta.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/registrodetarjetas/Disenio.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Instruccion.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Files/ControladorArchivosInstruccion.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/Consultar_Tarjeta.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/management/EjecutorInstruccion.java</file>
+            <file>file:/home/marito/Documentos/Universidad/Analisis-de-Sistemas/RefactorizacionProyecto/RegistroDeTarjetas/RegistroDeTarjetas/src/Instrucciones/html/ToHTML.java</file>
+        </group>
     </open-files>
 </project-private>

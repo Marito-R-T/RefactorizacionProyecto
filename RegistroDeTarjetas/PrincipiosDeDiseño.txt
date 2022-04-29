@@ -1,0 +1,34 @@
+ 
+Does the code implement a design pattern?
+No, no implementa ningun patron de diseño, a lo mucho intenta un Strategy
+en la parte de Lectura de archivos, que funciona como un delegador de ejecución a la
+clase que tenga que ejecutarse.
+
+Is the code tightly coupled?
+Si, esta altamente acoplado, no exageradamente, pero si hay unos cuantos estaticos
+que hacen que su refactorización se complique y se tenga que cambiar varias clases.
+Como también el cambio en una clase requiere la re-implementación a otras, más en la
+paquetería de Instrucciones, que ni siquiera extienden de Instruccion, y cada uno funciona
+"Separado", y si cambia en algo, hay que cambiar todas las clases que lo implementan.
+
+
+Is code testable?
+No es testeable, ya que hay muchos quiebres de codigo, además de mucho codigo en cada metodo, como también mucho usos de switches, ifs en un mismo metodo.
+
+Is the code human readable?
+Mas o menos, creo que se logra entender de una manera no tan complicada el como esta desarrollado
+y no hay metodos gigantes, aunque algunos si grandes, no son tan grandes, en la parte en la que
+se vuelve inteligible, es en la parte de evaluar linea de las instrucciones, sobre todo porque ni
+extienden de Instruccion, esto hace que cueste dilusidar cuales son instrucciones. Como también en las partes de generación de Instrucciones o Tarjetas, los constructores generan una gran cantidad
+de parametros, que son innecesarios, ya que al leerlo de un binario o texto se puede generar con
+getters y setters o se generan automaticamente los archivos.
+
+Is the code duplicated?
+Si, hay mucho codigo repetido, en todo el programa, desde las clases que "deberian" extender de
+Instruccion, que por no extender tienen la necesidad de implementar lo propio, también en las
+clases de Tarjetas, como las Nacionales, Internacionales y Regionales (aunque no tanto aquí),
+y sobre todo hay una alta duplicidad en las clases de manejo de archivos, de manejo de instrucciones,
+y manejo de logica.
+
+Is the code too lengthy to understand?
+Como en el momento que se hablo si es legible para un humano, creo que no hay metodos gigantes, hay uno que otro que esta grande, y las clases tampoco son gigantes, creo que falla en este punto, en ciertas partes de su codigo, como Consultar_Tarjeta, y otras.

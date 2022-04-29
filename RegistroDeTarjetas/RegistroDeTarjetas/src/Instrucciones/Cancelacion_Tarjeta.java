@@ -1,8 +1,7 @@
 package Instrucciones;
 
-import Files.ManejadorArchivosTarjetas;
+import Files.ControladorArchivosTarjeta;
 import java.io.Serializable;
-import registrodetarjetas.ControladorDeArchivos;
 import NumerosDeTarjeta.TarjetaDeCredito;
 
 public class Cancelacion_Tarjeta extends Instruccion implements Serializable {
@@ -13,19 +12,16 @@ public class Cancelacion_Tarjeta extends Instruccion implements Serializable {
                     .replaceAll("CANCELACION_TARJETA", "")
                     .replace("(", "")
                     .replace(")", "");
-            String nombreDelArchivo = "Tarjeta" + numeroDeTarjeta + ".tacre";
             TarjetaDeCredito tarjeta;
-            ManejadorArchivosTarjetas mat = new ManejadorArchivosTarjetas();
-            tarjeta = mat.leerTarjetaDeCredito(nombreDelArchivo);
+            ControladorArchivosTarjeta mat = new ControladorArchivosTarjeta();
+            tarjeta = mat.leerArchivo("Tarjeta" + numeroDeTarjeta + ".tacre");
             if (tarjeta.getCredito()< 0) {
                 tarjeta.setEstaActiva(false);
             } else {
                 System.out.println("No se puede cancelar la tarjeta ya que tiene credito pendiente. ");
             }
         } catch (NullPointerException e) {
-            System.out.println("No puede autorizar solicitudes que no existan ");
-        } catch (AssertionError err) {
-            System.out.println(err.getMessage());
+            throw new AssertionError("No puede autorizar solicitudes que no existan ", e);
         }
     }
 

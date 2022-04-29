@@ -1,9 +1,8 @@
 package Instrucciones;
 
-import Files.ManejadorArchivosInstrucciones;
+import Files.ControladorArchivosInstruccion;
 import java.io.*;
 import java.util.*;
-import registrodetarjetas.ControladorDeArchivos;
 
 public class Solicitud extends Instruccion implements Serializable {
 
@@ -51,6 +50,7 @@ public class Solicitud extends Instruccion implements Serializable {
         return this.direccion;
     }
 
+    @Override
     public void evaluarLinea(String line) {
         StringTokenizer token = new StringTokenizer(line, ","); //se define un nuevo objeto StringTokenizer con la cadena line y el delmitador ","
         String temp; //la variable temp sirve para almacenar datos y poder operar con ellos antes de ingresarlos a sus datos fijos
@@ -62,10 +62,7 @@ public class Solicitud extends Instruccion implements Serializable {
         nombre = String.valueOf(token.nextToken().replaceAll("\"", ""));
         salario = Integer.valueOf(token.nextToken());
         direccion = token.nextToken().replaceAll("\"", "").replace(")", "");
-        Solicitud solicitud = new Solicitud(numeroDeSolicitud, fecha, tipo, nombre, salario, direccion);
-        String numeroDeLaSolicitud = String.valueOf(solicitud.getNumeroDeSolicitud());
-        String nombreDeLaNuevaSolicitud = "Solicitud" + numeroDeLaSolicitud + ".sol";
-        ManejadorArchivosInstrucciones mai = new ManejadorArchivosInstrucciones();
-        mai.escribirEnArchivoInstruccion(nombreDeLaNuevaSolicitud, solicitud);
+        ControladorArchivosInstruccion controlador = new ControladorArchivosInstruccion();
+        controlador.escribirEnArchivo("Solicitud" + this.getNumeroDeSolicitud() + ".sol", this);
     }
 }
